@@ -74,6 +74,9 @@ class Grid{
 
 class Tic_Tac_Toe{
     
+    static void delay(){
+        for(int i=10000000;i>=0;i--);
+    }
     static void print_grid(Grid[] grid){
         int c;
         System.out.println("\n---------------------------------------------------");
@@ -142,6 +145,9 @@ class Tic_Tac_Toe{
         int flag=1;
         int index=1,ind=0;
         while (true) {
+            delay();
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
             print_grid(grid);
             if(Result.win_check()){
                 System.out.println(Result.matrix[Result.ptr]+" WINS");
@@ -159,7 +165,8 @@ class Tic_Tac_Toe{
                 ind=grid[index-1].grid_place();
                 Result.grid_place(index-1,status(grid[index-1]));
                 if(Result.matrix[index-1]=='X'){
-                    System.out.println("\n\nU WON THIS BOX\n\n");
+                    System.out.println("\n\nU WON THIS BOX\n\nPress Enter to contine");
+                    sc.nextLine();
                 }
                 index=ind;
                 Result.grid_place(index-1,status(grid[index-1]));
