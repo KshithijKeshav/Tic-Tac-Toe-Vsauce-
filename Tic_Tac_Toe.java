@@ -30,11 +30,14 @@ class Grid{
     }
     public int comp_place(){
         Random rand=new Random();
+        Scanner sc=new Scanner(System.in);
         while (true) {
             int rn=rand.nextInt(9);
             if(matrix[rn]==' '){
                 matrix[rn]='O';
                 System.out.println("Computer played in box no : "+(rn+1));
+                System.out.println("Press Enter to continue");
+                sc.nextLine();
                 return rn+1;
             }
         }
@@ -76,6 +79,16 @@ class Tic_Tac_Toe{
     
     static void delay(){
         for(int i=10000000;i>=0;i--);
+    }
+    static void stallX(int i){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("U WON BOARD: "+i+"\nPRESS ENTER TO CONTINUE");
+        sc.nextLine();
+    }
+    static void stallO(int i){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("COMPUTER WON BOARD: "+i+"\nPRESS ENTER TO CONTINUE");
+        sc.nextLine();
     }
     static void print_grid(Grid[] grid){
         int c;
@@ -144,6 +157,7 @@ class Tic_Tac_Toe{
         Random rnd=new Random();
         int flag=1;
         int index=1,ind=0;
+        int temp=0;
         while (true) {
             delay();
             System.out.print("\033[H\033[2J");
@@ -165,8 +179,7 @@ class Tic_Tac_Toe{
                 ind=grid[index-1].grid_place();
                 Result.grid_place(index-1,status(grid[index-1]));
                 if(Result.matrix[index-1]=='X'){
-                    System.out.println("\n\nU WON THIS BOX\n\nPress Enter to contine");
-                    sc.nextLine();
+                    stallX(index);
                 }
                 index=ind;
                 Result.grid_place(index-1,status(grid[index-1]));
@@ -187,7 +200,7 @@ class Tic_Tac_Toe{
                 ind=grid[index-1].comp_place();
                 Result.grid_place(index-1,status(grid[index-1]));
                 if(Result.matrix[index-1]=='O'){
-                    System.out.println("\n\n COMPUTER WON THIS BOX\n\n");
+                    stallO(index);
                 }
                 index=ind;
                 Result.grid_place(index-1,status(grid[index-1]));
@@ -200,7 +213,7 @@ class Tic_Tac_Toe{
                 if(flag==-1){
                     ind=grid[index-1].grid_place();
                     Result.grid_place(index-1,status(grid[index-1]));
-                    if(Result.matrix[index-1]=='X')System.out.println("\n\nU WON THIS BOX\n\n");
+                    if(Result.matrix[index-1]=='X')stallX(index);
                     index=ind;
                     Result.grid_place(index-1,status(grid[index-1]));
                     if(Result.matrix[index-1]!=' '){
@@ -213,7 +226,7 @@ class Tic_Tac_Toe{
                 if(flag==0){
                     ind=grid[index-1].comp_place();
                     Result.grid_place(index-1,status(grid[index-1]));
-                    if(Result.matrix[index-1]=='O')System.out.println("\n\nCOMPUTER WON THIS BOX\n\n");
+                    if(Result.matrix[index-1]=='O')stallO(index);
                     index=ind;
                     Result.grid_place(index-1,status(grid[index-1]));
                     if(Result.matrix[index-1]!=' ')flag=1;
